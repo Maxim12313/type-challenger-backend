@@ -2,18 +2,17 @@ import express from "express";
 import { createServer } from "http";
 import { Server } from "socket.io";
 
+import runExpress from "./expressFunc.js";
+import runSocket from "./socketFunc.js";
+
 const app = express();
 const server = createServer(app);
 const io = new Server(server);
 const PORT = 8080;
 
-app.get("/", (req, res) => {
-  res.send("<h1>Server Stuff</h1>");
-});
+runExpress(app);
+runSocket(io);
 
-io.on("connection", (socket) => {
-  console.log("someone joined");
-});
 
 server.listen(PORT, () => {
   console.log("listening on " + PORT);
