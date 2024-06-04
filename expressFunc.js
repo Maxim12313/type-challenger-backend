@@ -1,7 +1,13 @@
 import sql3 from "sqlite3";
+import cors from "cors";
 
 export default function runExpress(app) {
   const sqlite3 = sql3.verbose();
+
+  const origin = "http://localhost:3000";
+  app.use(cors({
+    origin
+  }));
 
   app.get("/", (req, res) => {
     res.send("<h1>Server Stuff</h1>");
@@ -14,7 +20,8 @@ export default function runExpress(app) {
     const sql = `SELECT word FROM Words WHERE id = ?`;
 
     db.get(sql, [idx], (err, row) => {
-      res.send(row["word"]);
+      console.log(row)
+      res.send(row);
     });
 
     db.close();
