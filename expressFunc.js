@@ -4,13 +4,16 @@ import cors from "cors";
 export default function runExpress(app) {
   const sqlite3 = sql3.verbose();
 
-  const origin = "http://localhost:3000";
+  const development = "http://localhost:3000";
+  const production = "https://type-challenger-frontend.vercel.app/singleplayer";
+  const origin = process.env.NODE_ENV == "development" ? development : production;
+
   app.use(cors({
     origin
   }));
 
   app.get("/", (req, res) => {
-    res.send("<h1>Server Stuff</h1>");
+    res.send("<h1>Server for Type Challenger</h1>");
   });
 
   app.get("/word/:freq", (req, res) => {
@@ -20,7 +23,7 @@ export default function runExpress(app) {
     const sql = `SELECT word FROM Words WHERE id = ?`;
 
     db.get(sql, [idx], (err, row) => {
-      console.log(row)
+      console.log(row);
       res.send(row);
     });
 
