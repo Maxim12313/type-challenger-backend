@@ -5,7 +5,7 @@ export default function runExpress(app) {
   const sqlite3 = sql3.verbose();
 
   const development = "http://localhost:3000";
-  const production = "https://type-challenger-frontend.vercel.app/singleplayer";
+  const production = "https://type-challenger-frontend.vercel.app";
   const origin = process.env.NODE_ENV == "development" ? development : production;
 
   app.use(cors({
