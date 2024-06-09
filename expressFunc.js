@@ -29,4 +29,9 @@ export default function runExpress(app) {
 
     db.close();
   });
+
+  app.post("/auth", (req, res) => {
+    const { email, password, byGoogle } = req.body;
+
+  });
 }
